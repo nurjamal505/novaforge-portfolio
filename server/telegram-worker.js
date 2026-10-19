@@ -16,9 +16,13 @@ const raw=await req.text();if(raw.length>MAX)return j({ok:false,error:'Request t
 let d;try{d=JSON.parse(raw)}catch{return j({ok:false,error:'Invalid JSON'},400)}
 if(d.website)return j({ok:true},200);
 const v={};for(const k in L)v[k]=clean(d[k],L[k]);
-if(!v.name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v.email)||v.message.length<20||d.consent!==true)return j({ok:false,error:'Invalid or missing fields'},400);
+if(!v.name||v.message.length<20)return j({ok:false,error:'Invalid or missing fields'},400);
 if(!env.BOT_TOKEN||!env.CHAT_ID)return j({ok:false,error:'Server not configured'},500);
-const text=`New NOVAFORGE request\n\nName: ${v.name}\nEmail: ${v.email}\nTelegram: ${v.telegram||'-'}\nPhone: ${v.phone||'-'}\nPreferred contact: ${v.method||'-'}\nType: ${v.type||'-'}\nBudget: ${v.budget||'-'}\nTimeline: ${v.deadline||'-'}\n\n${v.message}`;
+const text=`New NOVAFORGE request
+
+Name: ${v.name}
+
+${v.message}`;
 try{const r=await fetch(`https://api.telegram.org/bot${env.BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:env.CHAT_ID,text})});
 const t=await r.json();if(!r.ok||!t.ok)return j({ok:false,error:'Delivery failed'},502);
 hits.set(ip,now);return j({ok:true},200)}catch{return j({ok:false,error:'Delivery failed'},502)}}};
