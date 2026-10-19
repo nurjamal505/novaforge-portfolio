@@ -10,5 +10,5 @@ document.querySelectorAll('#pg .card').forEach(c=>c.classList.toggle('hide',btn.
 (()=>{const up=document.getElementById('up');up.onclick=()=>scrollTo({top:0,behavior:'smooth'});addEventListener('scroll',()=>up.classList.toggle('on',scrollY>500),{passive:true});
 if(matchMedia('(prefers-reduced-motion:reduce)').matches||!matchMedia('(hover:hover)').matches)return;
 const fl=[...document.querySelectorAll('[data-depth]')];addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;fl.forEach(f=>f.style.translate=`${x*-f.dataset.depth}px ${y*-f.dataset.depth}px`)},{passive:true});
-document.querySelectorAll('.card:not(.hide)').forEach(c=>{c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect();c.style.transform=`perspective(700px) rotateX(${-((e.clientY-r.top)/r.height-.5)*6}deg) rotateY(${((e.clientX-r.left)/r.width-.5)*6}deg) translateY(-4px)`});c.addEventListener('pointerleave',()=>c.style.transform='')});
-document.querySelectorAll('.btn').forEach(b=>{b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();b.style.translate=`${(e.clientX-r.left-r.width/2)*.15}px ${(e.clientY-r.top-r.height/2)*.25}px`});b.addEventListener('pointerleave',()=>b.style.translate='')})})();
+})();
+const bar=document.createElement('div');bar.id='bar';document.body.appendChild(bar);addEventListener('scroll',()=>{bar.style.width=scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100+'%'},{passive:true});
