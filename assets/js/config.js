@@ -1,2 +1,1 @@
-// Public config only. Put your Cloudflare Worker HTTPS URL here. NEVER put BOT_TOKEN here.
-window.NF_CONFIG={ENDPOINT:""};
+window.NF_CONFIG={ENDPOINT:"https://novaforge-requests.nurjamal7098.workers.dev/"};
