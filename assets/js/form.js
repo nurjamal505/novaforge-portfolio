@@ -1,5 +1,5 @@
-(()=>{const f=document.getElementById('lead'),err=document.getElementById('err'),btn=document.getElementById('send'),t=document.getElementById('toast');let busy=false;f.addEventListener('input',e=>e.target.classList.remove('bad'));
-    const toast=(m,e)=>{t.textContent=m;t.className='show'+(e?' error':'');setTimeout(()=>t.className='',5000)};
+(()=>{const f=document.getElementById('lead'),err=document.getElementById('err'),btn=document.getElementById('send'),tt=document.getElementById('toast');let busy=false;f.addEventListener('input',e=>e.target.classList.remove('bad'));
+    const toast=(m,e)=>{tt.textContent=m;tt.className='show'+(e?' error':'');setTimeout(()=>tt.className='',5000)};
     f.addEventListener('submit',async ev=>{ev.preventDefault();if(busy)return;err.textContent='';
         f.querySelectorAll('.bad').forEach(x=>x.classList.remove('bad'));const d=Object.fromEntries(new FormData(f));
         const bad=[];if([...d.name.trim()].length<3)bad.push('name');if([...d.message.trim()].length<3)bad.push('message');
